@@ -1,7 +1,13 @@
 /*
-* LifeQuest by PHForge
-*/
-#include "headers/user.hpp"
+ * LifeQuest
+ * Task manager that gamifies productivity by assigning random XP to tasks, allowing users to level up upon completion.
+ *
+ * Dev with passion by: PHForge
+ * License: MIT License
+ * Version: 0.0.1
+ */
+
+#include "user.hpp"
 #include <iostream>
 #include <string>
 
