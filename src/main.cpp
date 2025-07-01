@@ -4,31 +4,46 @@
  *
  * Dev with passion by: PHForge
  * License: MIT License
- * Version: 0.0.1
+ * Version: 0.0.2
  */
 
-#include "user.hpp"
+// main.cpp
+#include "User.hpp"
+#include "Task.hpp"
 #include <iostream>
 #include <string>
 
 int main() {
     User user;
-    const std::string filename = "user_data.txt";
+    const std::string userFilename = "user_data.txt";
+    const std::string tasksFilename = "tasks.txt";
 
-    // Check if user data exists
-    if (!user.loadFromFile(filename)) {
+    // Load or create user
+    if (!user.loadFromFile(userFilename)) {
         // First launch: prompt for username
         std::string username;
         std::cout << "Welcome! Please enter your username: ";
         std::getline(std::cin, username);
         user.setUsername(username);
-        user.saveToFile(filename);
+        user.saveToFile(userFilename);
+
+        // Prompt for first task
+        std::string taskTitle;
+        std::cout << "Enter your first task: ";
+        std::getline(std::cin, taskTitle);
+        Task task(taskTitle);
+        task.saveToFile(tasksFilename);
     }
 
     // Display user information
     user.display();
 
+    // Create and display a test task
+    Task testTask("Test task");
+    testTask.display();
+
     getchar(); // Wait for user input before exiting
+    std::cout << "Press Enter to exit..." << std::endl;
 
     return 0;
 }
