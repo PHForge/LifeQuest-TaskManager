@@ -1,22 +1,12 @@
-/*
- * LifeQuest
- * Task manager that gamifies productivity by assigning random XP to tasks, allowing users to level up upon completion.
- *
- * Dev with passion by: PHForge
- * License: MIT License
- * Version: 0.0.2
- */
-
 // main.cpp
 #include "User.hpp"
-#include "Task.hpp"
+#include "TaskManager.hpp"
 #include <iostream>
 #include <string>
 
 int main() {
     User user;
     const std::string userFilename = "user_data.txt";
-    const std::string tasksFilename = "tasks.txt";
 
     // Load or create user
     if (!user.loadFromFile(userFilename)) {
@@ -26,21 +16,27 @@ int main() {
         std::getline(std::cin, username);
         user.setUsername(username);
         user.saveToFile(userFilename);
+    }
 
-        // Prompt for first task
+    TaskManager taskManager(user);
+
+    // First launch: prompt for first task
+    if (taskManager.getTasks().empty()) {
         std::string taskTitle;
         std::cout << "Enter your first task: ";
         std::getline(std::cin, taskTitle);
-        Task task(taskTitle);
-        task.saveToFile(tasksFilename);
+        taskManager.addTask(taskTitle);
     }
 
-    // Display user information
-    user.display();
+    // Display tasks
+    taskManager.display();
 
-    // Create and display a test task
-    Task testTask("Test task");
-    testTask.display();
+    // Test completing a task (for demonstration)
+    if (!taskManager.getTasks().empty()) {
+        std::cout << "Completing first task for testing...\n";
+        taskManager.completeTask(0);
+        taskManager.display();
+    }
 
     getchar(); // Wait for user input before exiting
     std::cout << "Press Enter to exit..." << std::endl;
