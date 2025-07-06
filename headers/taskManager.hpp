@@ -40,6 +40,12 @@ public:
     // Display tasks with user info and separator
     void display() const;
 
+    // Display history of completed tasks
+    void displayHistory() const;
+
+    // Get reference to user
+    User& getUser() { return user; }
+
     // Get const reference to tasks (for checking if empty)
     const std::vector<Task>& getTasks() const { return tasks; }
 };
