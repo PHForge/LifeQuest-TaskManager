@@ -104,3 +104,23 @@ void TaskManager::display() const {
         }
     }
 }
+
+// Display history of completed tasks
+void TaskManager::displayHistory() const {
+    // Display user info
+    user.display();
+
+    // Display separator
+    std::cout << std::string(50, '-') << "\n";
+
+    // Display history
+    if (history.empty()) {
+        std::cout << "No completed tasks in history.\n";
+    } else {
+        std::cout << "Completed Tasks:\n";
+        for (size_t i = 0; i < history.size(); ++i) {
+            std::cout << i + 1 << ". ";
+            history[i].display();
+        }
+    }
+}
