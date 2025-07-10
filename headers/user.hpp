@@ -30,6 +30,9 @@ public:
 
     // Display user information
     void display() const;
+
+    // Add XP and handle level-up
+    void addXp(int amount);
 };
 
 #endif // USER_HPP

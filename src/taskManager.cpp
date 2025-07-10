@@ -21,10 +21,13 @@ void TaskManager::addTask(const std::string& title) {
 void TaskManager::completeTask(size_t index) {
     if (index < tasks.size()) {
         tasks[index].setCompleted(true);
+        // Add XP to user
+        user.addXp(tasks[index].getXp());
         history.push_back(tasks[index]);
         tasks.erase(tasks.begin() + index);
         saveTasks();
         saveHistory();
+        user.saveToFile("user_data.txt"); // Save updated user data
     } else {
         std::cerr << "Error: Invalid task index.\n";
     }
@@ -123,4 +126,12 @@ void TaskManager::displayHistory() const {
             history[i].display();
         }
     }
+}
+
+// Get task by index
+const Task& TaskManager::getTask(size_t index) const {
+    if (index < tasks.size()) {
+        return tasks[index];
+    }
+    throw std::out_of_range("Invalid task index");
 }

@@ -52,3 +52,14 @@ bool User::loadFromFile(const std::string& filename) {
 void User::display() const {
     std::cout << "User: " << username << " | Level: " << level << " | XP: " << xp << "\n";
 }
+
+// Add XP and handle level-up
+void User::addXp(int amount) {
+    xp += amount;
+    // Level up when XP reaches 100
+    while (xp >= 100) {
+        xp -= 100;
+        level++;
+        std::cout << "Congratulations! You leveled up to Level " << level << "!\n";
+    }
+}

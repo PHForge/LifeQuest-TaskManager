@@ -48,6 +48,9 @@ public:
 
     // Get const reference to tasks (for checking if empty)
     const std::vector<Task>& getTasks() const { return tasks; }
+
+    // Get task by index (for accessing XP)
+    const Task& getTask(size_t index) const;
 };
 
 #endif // TASK_MANAGER_HPP
