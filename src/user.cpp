@@ -27,7 +27,7 @@ void User::setUsername(const std::string& name) {
 
 // Save user data to a file
 void User::saveToFile(const std::string& filename) const {
-    std::ofstream file(filename);
+    std::ofstream file("data/" + filename);
     if (file.is_open()) {
         file << username << "\n" << level << "\n" << xp << "\n";
         file.close();
@@ -38,7 +38,7 @@ void User::saveToFile(const std::string& filename) const {
 
 // Load user data from a file
 bool User::loadFromFile(const std::string& filename) {
-    std::ifstream file(filename);
+    std::ifstream file("data/" + filename);
     if (file.is_open()) {
         std::getline(file, username);
         file >> level >> xp;

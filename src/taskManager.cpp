@@ -6,7 +6,7 @@
 
 // Constructor
 TaskManager::TaskManager(User& u, const std::string& tasksFile, const std::string& historyFile)
-    : user(u), tasksFilename(tasksFile), historyFilename(historyFile) {
+    : user(u), tasksFilename("data/" + tasksFile), historyFilename("data/" + historyFile) {
     loadTasks();
     loadHistory();
 }

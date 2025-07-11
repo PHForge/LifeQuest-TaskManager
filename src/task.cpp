@@ -37,7 +37,7 @@ int Task::generateRandomXp() const {
 
 // Save task to a file
 void Task::saveToFile(const std::string& filename) const {
-    std::ofstream file(filename, std::ios::app); // Append mode
+    std::ofstream file("data/" + filename, std::ios::app);
     if (file.is_open()) {
         file << title << "|" << (completed ? "1" : "0") << "|" << xp << "\n";
         file.close();

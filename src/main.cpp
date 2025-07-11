@@ -5,13 +5,13 @@
 #include <string>
 #include <limits>
 
-// Function to clear input buffer
+// Clears input buffer to prevent issues with getline
 void clearInputBuffer() {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-// Function to display menu and handle user input
+// Displays menu and handles user input
 void displayMenu(TaskManager& taskManager) {
     while (true) {
         // Display current tasks
@@ -27,68 +27,108 @@ void displayMenu(TaskManager& taskManager) {
         std::cout << "Enter your choice (1-5): ";
 
         int choice;
-        std::cin >> choice;
-        clearInputBuffer(); // Clear buffer to handle subsequent getline
+        if (!(std::cin >> choice)) {
+            std::cout << "Invalid input. Please enter a number.\n";
+            clearInputBuffer();
+            continue;
+        }
+        clearInputBuffer();
 
         switch (choice) {
             case 1: {
-                // Add a new task
                 std::string taskTitle;
                 std::cout << "Enter task description: ";
                 std::getline(std::cin, taskTitle);
                 if (!taskTitle.empty()) {
                     taskManager.addTask(taskTitle);
+                    std::cout << "Task added successfully!\n";
                 } else {
-                    std::cout << "Task description cannot be empty.\n";
+                    std::cout << "Error: Task description cannot be empty.\n";
                 }
                 break;
             }
             case 2: {
-                // Change username
                 std::string newUsername;
                 std::cout << "Enter new username: ";
                 std::getline(std::cin, newUsername);
                 if (!newUsername.empty()) {
                     taskManager.getUser().setUsername(newUsername);
                     taskManager.getUser().saveToFile("user_data.txt");
+                    std::cout << "Username changed successfully!\n";
                 } else {
-                    std::cout << "Username cannot be empty.\n";
+                    std::cout << "Error: Username cannot be empty.\n";
                 }
                 break;
             }
             case 3: {
-                // View task history
                 taskManager.displayHistory();
                 std::cout << "Press Enter to return to menu...";
                 std::string dummy;
-                std::getline(std::cin, dummy); // Use a named variable
+                std::getline(std::cin, dummy);
                 break;
             }
             case 4: {
-                // Complete a task
                 taskManager.display();
-                if (!taskManager.getTasks().empty()) {
-                    std::cout << "Enter task number to complete: ";
-                    int taskIndex;
-                    std::cin >> taskIndex;
+                if (taskManager.getTasks().empty()) {
+                    std::cout << "No tasks to complete.\n";
+                    break;
+                }
+                std::cout << "Enter task number to complete: ";
+                int taskIndex;
+                if (!(std::cin >> taskIndex)) {
+                    std::cout << "Invalid input. Please enter a number.\n";
                     clearInputBuffer();
-                    if (taskIndex > 0 && static_cast<size_t>(taskIndex) <= taskManager.getTasks().size()) {
-                        taskManager.completeTask(taskIndex - 1); // Convert to 0-based index
-                    } else {
-                        std::cout << "Invalid task number.\n";
-                    }
+                    break;
+                }
+                clearInputBuffer();
+                if (taskIndex > 0 && static_cast<size_t>(taskIndex) <= taskManager.getTasks().size()) {
+                    taskManager.completeTask(taskIndex - 1);
+                    std::cout << "Task completed successfully!\n";
+                } else {
+                    std::cout << "Error: Invalid task number.\n";
                 }
                 break;
             }
             case 5:
-                // Exit
                 std::cout << "Goodbye!\n";
                 return;
             default:
-                std::cout << "Invalid choice. Please enter a number between 1 and 5.\n";
+                std::cout << "Error: Please enter a number between 1 and 5.\n";
         }
         std::cout << "\n";
     }
+}
+
+// Simple test function to validate core functionalities
+void runTests(TaskManager& taskManager) {
+    std::cout << "Running tests...\n";
+
+    // Test 1: Add a task
+    taskManager.addTask("Test task");
+    if (!taskManager.getTasks().empty() && taskManager.getTasks()[0].getTitle() == "Test task") {
+        std::cout << "Test 1 passed: Task added.\n";
+    } else {
+        std::cout << "Test 1 failed: Task not added.\n";
+    }
+
+    // Test 2: Complete a task
+    size_t taskCount = taskManager.getTasks().size();
+    taskManager.completeTask(0);
+    if (taskManager.getTasks().size() < taskCount && !taskManager.getHistory().empty()) {
+        std::cout << "Test 2 passed: Task completed and moved to history.\n";
+    } else {
+        std::cout << "Test 2 failed: Task not completed.\n";
+    }
+
+    // Test 3: Change username
+    taskManager.getUser().setUsername("TestUser");
+    if (taskManager.getUser().getUsername() == "TestUser") {
+        std::cout << "Test 3 passed: Username changed.\n";
+    } else {
+        std::cout << "Test 3 failed: Username not changed.\n";
+    }
+
+    std::cout << "Tests completed.\n";
 }
 
 int main() {
@@ -97,7 +137,6 @@ int main() {
 
     // Load or create user
     if (!user.loadFromFile(userFilename)) {
-        // First launch: prompt for username
         std::string username;
         std::cout << "Welcome! Please enter your username: ";
         std::getline(std::cin, username);
@@ -108,7 +147,7 @@ int main() {
         user.saveToFile(userFilename);
     }
 
-    TaskManager taskManager(user);
+    TaskManager taskManager(user, "tasks.txt", "history.txt");
 
     // First launch: prompt for first task
     if (taskManager.getTasks().empty()) {
@@ -117,8 +156,12 @@ int main() {
         std::getline(std::cin, taskTitle);
         if (!taskTitle.empty()) {
             taskManager.addTask(taskTitle);
+            std::cout << "First task added successfully!\n";
         }
     }
+
+    // Run tests (optional, can be removed for production)
+    runTests(taskManager);
 
     // Start interactive menu
     displayMenu(taskManager);
