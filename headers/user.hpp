@@ -1,4 +1,3 @@
-// User.hpp
 #ifndef USER_HPP
 #define USER_HPP
 
@@ -35,4 +34,4 @@ public:
     void addXp(int amount);
 };
 
-#endif // USER_HPP
+#endif

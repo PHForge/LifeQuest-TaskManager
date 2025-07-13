@@ -1,4 +1,3 @@
-// User.cpp
 #include "user.hpp"
 #include <fstream>
 #include <iostream>
@@ -12,10 +11,12 @@ std::string User::getUsername() const {
     return username;
 }
 
+// Get current level and experience points
 int User::getLevel() const {
     return level;
 }
 
+// Get current experience points
 int User::getXp() const {
     return xp;
 }

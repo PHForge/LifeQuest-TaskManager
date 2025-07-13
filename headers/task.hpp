@@ -1,4 +1,3 @@
-// Task.hpp
 #ifndef TASK_HPP
 #define TASK_HPP
 
@@ -36,4 +35,4 @@ private:
     int generateRandomXp() const;
 };
 
-#endif // TASK_HPP
+#endif

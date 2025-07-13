@@ -1,4 +1,12 @@
-// main.cpp
+/*
+ * LifeQuest  
+ * A simple task management application with xp and level system.
+ *
+ * Dev with passion by: PHForge
+ * License: MIT License
+ * Version: 0.1
+ */
+
 #include "User.hpp"
 #include "TaskManager.hpp"
 #include <iostream>

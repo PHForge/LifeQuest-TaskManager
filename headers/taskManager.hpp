@@ -56,4 +56,4 @@ public:
     const std::vector<Task>& getHistory() const { return history; }
 };
 
-#endif // TASK_MANAGER_HPP
+#endif

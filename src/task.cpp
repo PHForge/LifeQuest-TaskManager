@@ -1,4 +1,3 @@
-// Task.cpp
 #include "Task.hpp"
 #include <iostream>
 #include <fstream>
@@ -14,10 +13,12 @@ std::string Task::getTitle() const {
     return title;
 }
 
+// Check if the task is completed
 bool Task::isCompleted() const {
     return completed;
 }
 
+// Get XP for the task
 int Task::getXp() const {
     return xp;
 }
