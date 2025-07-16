@@ -47,17 +47,20 @@ The following components are required to build, run, or contribute to LifeQuest:
 ## Installation </>
 
 1. **Clone the Repository**:
-  ```bash
-	git clone https://github.com/your-username/lifequest.git
-  cd lifequest
-	```
+      
+```bash
+git clone https://github.com/your-username/lifequest.git
+cd lifequest
+```
 
 2. **Build the project:**:
-	```bash
-	cmake --build .
-	```
+
+```bash
+cmake --build .
+```
 
 3. **Run the executable:**:
+
 	- Windows: `./LifeQuest.exe`
 	- Linux: `./LifeQuest`
 
