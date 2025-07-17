@@ -107,38 +107,6 @@ void displayMenu(TaskManager& taskManager) {
     }
 }
 
-// Simple test function to validate core functionalities
-void runTests(TaskManager& taskManager) {
-    std::cout << "Running tests...\n";
-
-    // Test 1: Add a task
-    taskManager.addTask("Test task");
-    if (!taskManager.getTasks().empty() && taskManager.getTasks()[0].getTitle() == "Test task") {
-        std::cout << "Test 1 passed: Task added.\n";
-    } else {
-        std::cout << "Test 1 failed: Task not added.\n";
-    }
-
-    // Test 2: Complete a task
-    size_t taskCount = taskManager.getTasks().size();
-    taskManager.completeTask(0);
-    if (taskManager.getTasks().size() < taskCount && !taskManager.getHistory().empty()) {
-        std::cout << "Test 2 passed: Task completed and moved to history.\n";
-    } else {
-        std::cout << "Test 2 failed: Task not completed.\n";
-    }
-
-    // Test 3: Change username
-    taskManager.getUser().setUsername("TestUser");
-    if (taskManager.getUser().getUsername() == "TestUser") {
-        std::cout << "Test 3 passed: Username changed.\n";
-    } else {
-        std::cout << "Test 3 failed: Username not changed.\n";
-    }
-
-    std::cout << "Tests completed.\n";
-}
-
 int main() {
     User user;
     const std::string userFilename = "user_data.txt";
@@ -167,9 +135,6 @@ int main() {
             std::cout << "First task added successfully!\n";
         }
     }
-
-    // Run tests (optional, can be removed for production)
-    runTests(taskManager);
 
     // Start interactive menu
     displayMenu(taskManager);

@@ -52,7 +52,7 @@ public:
     // Get task by index (for accessing XP)
     const Task& getTask(size_t index) const;
 
-    // Get const reference to history (for testing)
+    // Get const reference to history
     const std::vector<Task>& getHistory() const { return history; }
 };
 
