@@ -4,7 +4,7 @@
 
 ![C++](https://img.shields.io/badge/C++-17-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
-![Version](https://img.shields.io/badge/Version-0.1-brightgreen.svg)
+![Version](https://img.shields.io/badge/Version-0.2-brightgreen.svg)
 
 <br>
 
